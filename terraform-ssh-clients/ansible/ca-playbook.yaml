@@ -1,0 +1,11 @@
+---
+- hosts: ca_ssh_clients
+  remote_user: ubuntu
+  become: true
+  tasks:
+    - name: copy over ca-cert file needed to talk to vault
+      copy:
+        src: /Users/wendysegura/.keys/ca.cert.pem
+        dest: /tmp/ca_public_key.pem
+    - name: update files on the ssh ca clients
+      script: /Users/wendysegura/Desktop/SecretLock/terraform-ssh-clients/ansible/scripts/ca-userdata.sh
